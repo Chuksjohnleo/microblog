@@ -3,7 +3,6 @@ import Nav from "@/components/Nav";
 import Head from "next/head";
 import Posts from "@/components/posts";
 import Footer from "@/components/footer";
-import utilStyle from '@/styles/utils.module.css';
 import styles from "@/styles/Home.module.css";
 
 
