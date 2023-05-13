@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Context } from "./post";
 import styles from './reply.module.css';
+import Link from 'next/link';
 
 export default function Reply({Image, reply, handleEditor, shadow, likedReplies}){
 
@@ -53,10 +54,10 @@ const userContext =  useContext(Context);
     return(
         <>
           <div className={styles.replierDetails}>
-            <a href="/#" className={styles.replierId}>
+            <Link href="/#" className={styles.replierId}>
                 <Image className={styles.shadow} alt={reply.replier+"pics"} width={30} height={30} src={shadow} />
                 <em className={styles.replierName} >{reply.replyId}{reply.replier?.length<1?'NWANONENYI CHUKWUKA':reply.replier}</em>
-            </a>
+            </Link>
             { 
                reply.replierId !== userContext.user.userId ? <button onClick={(e)=>userContext.follow(e, reply.replierId)} className={styles.follow}>Follow</button>:
                ' '

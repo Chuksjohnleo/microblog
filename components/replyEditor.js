@@ -182,7 +182,7 @@ return (
      <div className={styles.editorContainer}>
       <div className={styles.editor}>
         <div id={"replyEditor"+i} style={{backgroundColor:theme.backgroundColor,color:theme.color}} className={styles.reactQuilContainer}>
-          <strong className={styles.info}>Replying to {replyTo.username} on {theComment.commenter}'s comment</strong>
+          <strong className={styles.info}>{`Replying to ${replyTo.username} on {theComment.commenter}'s comment`}</strong>
           <ReactQuill  
            placeholder="Write your reply here"
            value={content}
