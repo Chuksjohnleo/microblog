@@ -1,0 +1,61 @@
+.ImageView{
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+.container{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    margin-bottom: 10vh;
+}
+
+.action{
+    display: flex;
+    justify-content: space-between;
+    gap: 60vw;
+    margin: 5px;
+}
+
+.theImage{
+    display: block;
+    width: 100%;
+    height: 80vh;
+    object-fit: contain;
+}
+
+.save,.cancel{
+    color: navy;
+    padding: 5px;
+    border: 1px solid;
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 900;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    background-color: white;
+}
+
+@media screen and (hover:hover){
+    .theImage{
+        width: 80vw;
+    }
+    .container{
+        margin-bottom: 1vh;
+    }
+    .action{
+       gap: 40px;
+    }
+}

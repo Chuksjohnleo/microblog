@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW X7 -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="16.5354in" height="11.6929in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 16535 11693"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <font id="FontID0" horiz-adv-x="722" font-variant="normal" class="str0" style="fill-rule:nonzero" font-weight="700">
+	<font-face 
+		font-family="Arial">
+	</font-face>
+   <missing-glyph><path d="M0 0z"/></missing-glyph>
+   <glyph unicode="L" horiz-adv-x="610"><path d="M77.0004 0l0 710 145 0 0 -589 359 0 0 -121 -504 0z"/></glyph>
+   <glyph unicode="C" horiz-adv-x="722"><path d="M531 264l140 -42.9997c-21.4999,-78.834 -57.3333,-137.334 -107.334,-175.667 -49.9997,-38.167 -113.333,-57.3333 -190.166,-57.3333 -95.1667,0 -173.333,32.4998 -234.667,97.5003 -61.1669,64.9996 -91.8339,153.833 -91.8339,266.666 0,119.167 30.8334,211.833 92.3339,277.833 61.4996,66.0005 142.5,99.0003 242.833,99.0003 87.6667,0 158.834,-25.9998 213.5,-77.8331 32.6662,-30.6671 56.9996,-74.6668 73.3332,-132.166l-143 -34.0007c-8.49995,37.0007 -26.1671,66.3341 -53.0006,87.834 -26.9998,21.4999 -59.666,32.1662 -97.9994,32.1662 -53.1669,0 -96.3339,-18.9999 -129.334,-57.166 -33.1671,-38.0007 -49.667,-99.6675 -49.667,-185.001 0,-90.3331 16.3335,-154.834 48.8333,-193.166 32.6671,-38.5006 75.0004,-57.6669 127.167,-57.6669 38.4998,0 71.6659,12.1663 99.333,36.6661 27.6671,24.5007 47.667,62.8332 59.6669,115.334z"/></glyph>
+   <glyph unicode="J" horiz-adv-x="556"><path d="M330 716l145 0 0 -453.666c0,-59.3342 -5.16634,-105 -15.6663,-137 -13.9999,-41.667 -39.3334,-75.1668 -76.1668,-100.5 -36.667,-25.1671 -85.1667,-37.8334 -145.5,-37.8334 -70.6668,0 -125,19.6662 -163,59.1669 -38.167,39.4998 -57.3333,97.4994 -57.6669,173.833l137 15.9999c1.66636,-40.8334 7.49995,-69.6668 17.8335,-86.5004 15.4999,-25.6662 38.9998,-38.4998 70.6668,-38.4998 31.8334,0 54.4997,9.16631 67.6668,27.6662 13.1663,18.3335 19.8326,56.5005 19.8326,114.5l0 462.833z"/></glyph>
+  </font>
+  <style type="text/css">
+   <![CDATA[
+    @font-face { font-family:"Arial";src:url("#FontID0") format(svg)}
+    .str0 {stroke-width:50.2165;stroke-linejoin:round}
+    .str1 {stroke:#003399;stroke-width:222.22;stroke-linejoin:round}
+    .fil3 {fill:#E9E9E9}
+    .fil2 {fill:url(#id0)}
+    .fil0 {fill:url(#id1)}
+    .fil1 {fill:url(#id2)}
+    .fnt0 {font-weight:bold;font-size:4425.22px;font-family:'Arial'}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="6279.67" y1="5997.97" x2="11606.9" y2="5466.04">
+   <stop offset="0" style="stop-opacity:1; stop-color:#003399"/>
+   <stop offset="0.439216" style="stop-opacity:1; stop-color:#89A1D0"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#003399"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="10808.5" y1="5650.26" x2="6968.48" y2="5763.06">
+   <stop offset="0" style="stop-opacity:1; stop-color:#003399"/>
+   <stop offset="0.45098" style="stop-opacity:1; stop-color:#E9E9E9"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#00297C"/>
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="5744.31" y1="5887.48" x2="12054.6" y2="5241.31">
+   <stop offset="0" style="stop-opacity:1; stop-color:#00297C"/>
+   <stop offset="0.470588" style="stop-opacity:1; stop-color:#F2F9FC"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#00297C"/>
+  </linearGradient>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_374725160">
+   <ellipse class="fil0" cx="8888" cy="5707" rx="4525" ry="1708"/>
+   <ellipse class="fil1" cx="8899" cy="5564" rx="4148" ry="1566"/>
+   <ellipse class="fil2" cx="8943" cy="5732" rx="3704" ry="1398"/>
+   <text x="10725" y="5909"  class="fil3 str1 fnt0">L</text>
+   <text x="4416" y="5909"  class="fil3 str1 fnt0">C</text>
+   <text x="7923" y="5909"  class="fil3 str1 fnt0">J</text>
+  </g>
+ </g>
+</svg>

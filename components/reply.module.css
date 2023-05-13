@@ -1,0 +1,144 @@
+.replierDetails{
+    display: grid;
+    padding: 5px;
+}
+
+.shadow{
+    margin: 5px;
+    float: left;
+    border-radius: 12px;
+    object-fit: contain;
+    background-color: rgb(200, 200, 240);
+}
+
+.replierId{
+    overflow: hidden;
+    width: 100%;
+    max-height: 62px;
+}
+
+.date{
+    font-size: 10px;
+}
+
+.replierName{
+   line-height: 14px;
+   font-size: 12px;
+   font-weight: 900;
+   display:block;
+   padding-top: 10px;
+}
+
+.follow{
+    display: block;
+    border: 1px solid navy;
+    width: 100px;
+    text-align: center;
+    border-radius: 12px;
+    color: navy;
+    margin: 15px;
+    cursor: pointer;
+    padding: 5px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-weight: 900;
+}
+
+.follow:active{
+    background-color: navy;
+    color: white;
+}
+
+@media screen and (min-width:501px){
+    .replierName{
+       font-size: 16px;
+     }
+     .date{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:225px){
+    .replierName{
+        font-size: 8px;
+      }
+}
+
+
+.actionsContainer{
+    margin: 5px auto;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.likeReplyBtn,
+.replyReplyBtn{
+    width: 100%;
+    background-color: white;
+    border: 1px solid navy;
+    border-radius: 12px;
+    font-weight: 600;
+    color: navy;
+    padding: 5px;
+}
+
+.replyContainer{
+    margin: 5px;
+    border-radius: 12px;
+    padding: 5px;
+    background-color: white;
+}
+
+
+.reply{
+    margin: 10px auto;
+    padding: 5px;
+    font-size: smaller;
+}
+
+
+.follow:active{
+    background-color: navy;
+    color: white;
+}
+
+.replierId:active{
+    cursor: pointer;
+    line-height: 1rem;
+    border-radius: 12px;
+    color: navy;
+    border: 1px solid navy;
+}
+
+.likeReplyBtn:active,
+.replyReplyBtn:active{
+  background-color: navy;
+  color: white;
+}
+
+.navybg{
+    background-color: navy;
+    color: white;
+}
+
+
+@media screen and (hover:hover){
+    .follow:hover{
+        background-color: navy;
+        color: white;
+    }
+
+    .replierId:hover{
+        cursor: pointer;
+        line-height: 1rem;
+        border-radius: 12px;
+        color: navy;
+        border: 1px solid navy;
+    }
+
+    .likeReplyBtn:hover,
+    .replyReplyBtn:hover{
+      background-color: navy;
+      color: white;
+    }
+}

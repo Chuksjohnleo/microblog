@@ -1,0 +1,554 @@
+.header{
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    max-height: 170px;
+    backdrop-filter: blur(3px);
+    background:rgba(255, 255, 255,0.9);
+}
+
+.navyBorder{
+   background-color: navy;
+   fill: white;
+   border-radius: 4px;
+   padding: 2px;
+}
+
+.searchInput{
+    height: 35px;
+    border-right: 0px;
+    outline: none;
+    padding: 5px;
+    width: 60%;
+    background: var(--home-background);
+}
+
+.searchContainer{
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    transition: 1s;
+    opacity: 1;
+}
+
+.searchButton{
+    height: 35px;
+    border-radius: 0px 12px 12px 0px;
+    background-color: white;
+    font-weight: var(--btn-font-weight);
+    color: navy;
+    padding: 5px;
+}
+.closeSearch{
+    padding: 5px;
+    background-color:white;
+    font-weight: 900;
+    border-radius:12px 0px 0px 12px;
+    color: navy;
+}
+.searchInput:-ms-input-placeholder{
+text-align: center;
+}
+
+.invisible{
+    display: none;
+}
+
+.sidebarOpen{
+    width: 100vw;
+    height: calc(100vh - 102px);
+    backdrop-filter: blur(5px);
+    background-color: rgba(251, 251, 252,0.95);
+    color: navy;
+    position: fixed;
+    z-index: 1;
+    transition: 0.8s;
+    right: 0;
+    bottom: 0;
+    top: 102px;
+    animation: sidebar 1s linear 0s 1 normal;
+    overflow: auto;
+    padding:0 20px;
+}
+
+
+@keyframes sidebar {
+    from{
+        opacity: 0.1;
+        height: 0;
+    }
+    to{
+       opacity: 1; 
+       height: calc(100vh - 102px);
+    }
+}
+
+@media screen and (min-width:400px) and (hover:hover){
+   
+    .sidebarOpen::-webkit-scrollbar{
+    background-color: white;
+    border-right: 1px solid navy;
+    border-left: 2px solid navy;
+    cursor: pointer;
+    }
+  
+    .sidebarOpen::-webkit-scrollbar-thumb{
+        border-radius: 12px;
+        border: 2px solid navy;
+    }
+  
+    .sidebarOpen::-webkit-scrollbar-button:vertical:start{
+        border-radius:12px 12px 0 0px;
+        border: 2px solid navy;
+    }
+  
+    .sidebarOpen::-webkit-scrollbar-button:vertical:end{
+        border-radius:0 0 12px 12px;
+        border: 2px solid navy;
+    }
+  
+    .sidebarOpen::-webkit-scrollbar-button:vertical:start:hover,
+    .sidebarOpen::-webkit-scrollbar-button:vertical:end:hover,
+    .sidebarOpen::-webkit-scrollbar-thumb:hover{
+        background-color: navy;
+    }
+    
+    .sidebarOpen::-webkit-scrollbar-button:vertical:start:increment,
+    .sidebarOpen::-webkit-scrollbar-button:vertical:end:decrement
+        {
+        display: none;
+    }
+  
+  }
+
+.sidebarClose{
+    display: none;
+}
+
+
+.h12{
+    color: navy;
+    line-height: 50px;
+    display: none;
+}
+
+
+.h11{
+    color: navy;
+    margin-left: 3px;
+    font-size: 0.8rem;
+    line-height: 28px;
+    text-align: center;
+}
+
+
+.idContainer1{
+    display: flex;
+    padding:0 5px;
+    gap: 6px;
+    align-items: center;
+    flex-grow: 0;
+}
+
+.idContainer2{
+    display: none;
+    padding:0 5px;
+    gap: 6px;
+    align-items: center;
+    flex-grow: 0;
+}
+
+@media screen and (min-width:900px){
+
+    .navBtnContainer{
+      width: 100% ;
+    }
+
+    .h12{
+        display: block;
+    }
+
+    .h11,.action a{
+        display: none;
+    }
+
+    .idContainer1{
+        display: none;
+    }
+
+    
+    .idContainer2{
+        display: flex;
+    }
+
+    .burgerIconContainer{
+        display: none;
+    }
+}
+
+.burger{
+    cursor: pointer;
+}
+.cancel{
+    padding: 5px;
+    border: 0px;
+    background-color: transparent;
+    font-weight: 800;
+    font-size: 24px;
+    cursor: pointer;
+}
+.nav{
+    height: 50px;
+    display: flex;
+    border-bottom: 1px solid navy;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.navBtnContainer{
+    display: flex;
+    border-bottom: 1px solid navy;
+    align-items: center;
+    overflow-x: auto;
+    overflow-y: visible;
+}
+
+
+@media screen and (min-width:400px) and (hover:hover){
+    .navBtnContainer::-webkit-scrollbar{
+    background-color: white;
+    height: 15px;
+    border-top: 1px solid navy;
+    border-bottom: 1px solid navy;
+    }
+    .navBtnContainer::-webkit-scrollbar-thumb{
+        /* background-color:; */
+        border-radius: 12px;
+        border: 2px solid navy;
+    }
+
+    .navBtnContainer::-webkit-scrollbar-button:horizontal:start{
+        /* background-color:lightblue; */
+        border-radius:12px 0 0 12px;
+        border: 2px solid navy;
+    }
+
+    .navBtnContainer::-webkit-scrollbar-button:horizontal:end{
+        /* background-color: lightblue; */
+        border-radius:0 12px 12px 0;
+        border: 2px solid navy;
+    }
+
+    .navBtnContainer::-webkit-scrollbar-button:horizontal:start:hover,
+    .navBtnContainer::-webkit-scrollbar-button:horizontal:end:hover,
+    .navBtnContainer::-webkit-scrollbar-thumb:hover{
+        background-color: navy;
+    }
+    
+    .navBtnContainer::-webkit-scrollbar-button:horizontal:start:increment,
+    .navBtnContainer::-webkit-scrollbar-button:horizontal:end:decrement
+        {
+        display: none;
+    }
+
+}
+
+
+.navIconContainer{
+    width: 20px;
+    height: 49px;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+.navIcon{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    cursor: pointer;
+}
+
+.navIcon:hover{
+    border-radius: 4px;
+    padding: 2px;
+    transition: 0.4s;
+    border: 1px solid navy;
+}
+
+.navNavy{
+    fill: navy;
+}
+.searchiconBtn{
+    border:0;
+    background-color:inherit;
+    font:inherit;
+}
+.logoContainer{
+   max-width: 20vw;
+}
+
+.logo{
+    height: 48px;
+    width: 100%;
+    transition: 1s;
+    object-fit: contain;
+}
+
+.dsc{
+    display: none;
+    background-color: navy;
+    color: white;
+    padding: 5px;
+    position: absolute;
+    border-radius: 12px;
+    pointer-events:none;
+}
+
+.infoParent,.searchiconContainer{
+   display: flex;
+   position: relative;
+}
+/* .searchiconContainer{
+    
+} */
+
+.info{
+    position: absolute;
+    display: inline-block;
+    font-size:8px;
+    color: white;
+    background-color: navy;
+    border-radius: 100%;
+    padding: 1px;
+    align-self: center;
+    right: 70%;
+    pointer-events: none;
+}
+
+.important{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 3px;
+}
+
+.action{
+display: flex;
+width: 60%;
+justify-content: space-around;
+align-items: center;
+}
+
+.action a{
+    font-size: 0.8rem;
+    color: navy;
+    padding:0 5px;
+    height: 20px;
+    cursor: pointer;
+    border: 1px solid navy;
+    border-radius: 12px;
+    margin: 0 3px;
+}
+
+@media screen and (hover:hover){
+    .action a:hover{
+        background-color: navy;
+        color: white;
+        transition: 0.6s;
+    }
+
+    .burgerIconContainer:hover .dsc{
+        display: inline-block;
+        top: 95px;
+        right: 30px;
+    }
+
+    .navIconContainer:hover .dsc{
+        display: inline-block;
+        top:45px;
+    }
+
+    /* Can't remember what this does probably because not all navIcon is infoParent */
+    .infoParent:hover .dsc{
+        left: 15px;
+        top:45px;
+    }
+}
+
+@media screen and (min-height:700px) and (hover:hover){
+    .burgerIconContainer:hover .dsc{
+        display: inline-block;
+        top: 65px;
+        right: 50px;
+    }
+}
+
+.navBtn{
+    font-size: 16px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 5px;
+    margin: 10px;
+    border: 0px ;
+    cursor: pointer;
+    transition: 0.1s;
+    display: inline-block;
+    width: max-content;
+    border: 1px solid navy;
+}
+
+.navBtnParent{
+    width:100%;
+    text-align: center;
+}
+
+.navBtn:active{
+    background-color: navy;
+    color: white;
+} 
+
+.navyBackground{
+  background-color:  navy;
+  color: white;
+}
+.searchButton:active,.closeSearch:active{
+    background-color:navy;
+    color: white;
+ }
+
+ 
+.posting{
+    display: flex;
+    justify-content: center;
+    margin: 12px 6px;
+}
+
+.postbtn{
+    font-weight: 700;
+    font-size: medium;
+    border-radius: 12px;
+    padding: 3px;
+    transition: 1s;
+    border: 1px solid navy;
+    font-family: var(--font-mono);
+}
+
+.postbtn:active{
+    background-color: navy;
+    color: white;
+}
+
+.profilePics{
+    margin:auto 12px;
+    border-radius: 12px;
+    background-color: grey;
+}
+
+.settingIcon{
+    margin:auto 12px;
+    border-radius: 12px;
+}
+
+@media screen and (hover:hover){
+   .searchButton:hover,.closeSearch:hover,.postbtn:hover{
+        background-color:navy;
+        color: white;
+    }  
+
+    .navBtn:hover{
+        transform: scale(0.9);
+    }
+}
+
+
+@media screen and (min-width:360px){
+    .h11{
+        font-size: 24px;
+        line-height: 28px;
+       }
+    .action a{
+        font-size: 16px;
+    }
+    .action{
+        width: 40%;
+    }
+}
+
+
+@media screen and (max-width:235px) {
+    .h11{
+        font-size: 0.7rem;
+        line-height: 20px; 
+    }
+    .action{
+        font-size: 0.7rem;
+        line-height: 20px; 
+    }
+    .action a{
+        font-size: 0.7rem;
+    }
+
+    .postbtn{
+        font-size: 0.5rem;
+    }
+}
+
+@media screen and (max-width:199px){
+    .sidebarOpen{
+        width: 100vw;
+        height: calc(100vh - 78px);
+        top: 85px;
+    }
+
+    .navBtn,.sidebarClose,.sidebarOpen{
+        font-size:xx-small;
+    }
+    .logo{
+        height: 100%;
+        width: 100%;
+    }
+    .h11{
+        font-size: 0.5rem;
+        margin: 0;
+        padding: 0;
+       line-height: 40px;
+    }
+    .action{
+        font-size: 0.6rem;
+        flex-direction: column;
+    }
+
+    .logoContainer{
+        max-width: 30vw;
+    }
+
+}
+
+@media screen  and (max-width:119px){
+    .info{
+        font-size: 4px;
+    }
+
+    .profilePics{
+        height: 30px;
+       }
+}
+
+@media screen  and (min-width:260px){
+    .info{
+        font-size: 12px;
+    }
+   .navIconContainer,.burgerIconContainer{
+    width: 30px;
+   }
+   
+}
+/* 
+@media screen  and (min-width:560px){
+    .sidebarOpen{
+        top: 50px;
+    }
+} */

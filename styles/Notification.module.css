@@ -1,0 +1,15 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    min-height: 100vh;
+    max-width: 800px;
+    min-width: 80vw;
+    margin: auto;
+  }
+
+.editor{
+ max-width: 80vw;
+  }

@@ -1,0 +1,16 @@
+.details{
+  border: 1px solid navy;
+  margin-bottom: 10px;
+  border-radius: 12px;
+}
+
+.sorting{
+    padding: 10px;
+  }
+  
+  .select{
+    border-radius: 12px;
+    background-color: white;
+    max-width: 90vw;
+  }
+  

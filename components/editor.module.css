@@ -1,0 +1,282 @@
+.editorSection{
+ display: flex;
+ justify-content: center;
+ margin: auto;
+}
+
+.richTextEditor{
+  max-width: 80vw;
+  border-radius: 12px;
+  margin: auto;
+}
+
+
+
+.editor img{
+  max-height:200px;
+}
+
+.postType{
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.postType button{
+  font-size: medium;
+  margin: 5px;
+  width: 100%;
+  font-family:inherit;
+  padding: 5px;
+  border: 1px solid navy;
+  border-radius: 12px;
+}
+
+.normalTextEditor{
+  width: 80%;
+  margin: auto;
+  padding: 10px;
+  font-weight: 700;
+  border: 1px solid navy;
+  font-size: 17px;
+  border-radius: 12px;
+  max-width: 80vw;
+}
+
+.normalTextEditor::placeholder{
+  text-align: center;
+  font-size: 20px;
+}
+
+.normalTextEditor:focus{
+  outline: navy;
+}
+
+.richTextType,
+.linkType,
+.normalTextType{
+  background-color: white;
+  color: navy;
+}
+
+.richTextType:hover,
+.linkType:hover,
+.normalTextType:hover{
+ transform: scale(0.9);
+  color: navy;
+}
+
+.currentType{
+  background-color: navy;
+  color: white;
+}
+
+.currentType:hover{
+  color: white;
+}
+
+
+.categoriesContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.select{
+  border: 1px solid navy;
+  width: 80%;
+  border-radius: 12px;
+  padding: 5px;
+  text-align: center;
+}
+
+.select:active{
+  outline: none;
+}
+
+.select:hover{
+  outline: navy;
+}
+
+.titleContainer{
+  margin: 10px auto;
+  width: 100%;
+  text-align: center;
+}
+
+.title{
+  font-weight: 1000;
+  display: block;
+  font-size: larger;
+  padding: 3px;
+  width: 80%;
+  margin: auto;
+  border: 1px solid navy;
+  border-radius: 12px;
+}
+
+.titleInputLabel,
+.linkInputLabel{
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.postTypes{
+  text-align: center;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+
+.detail{
+  text-align: center;
+  margin: 1.5rem auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.titleContainer,
+.detail,
+.postTypes{
+  max-width: 80vw;
+}
+
+.descriptionLabel{
+  font-weight: 600;
+}
+
+.description{
+  width: 80%;
+  margin: auto;
+  padding: 5px;
+  font-weight: 700;
+  border: 1px solid navy;
+  border-radius: 12px;
+  max-width: 80vw;
+}
+
+.linkText{
+  font-weight: 800;
+  display: block;
+  font-size: large;
+  padding: 10px;
+  width: 100%;
+  margin: auto;
+  border: 1px solid navy;
+  border-radius: 12px;
+}
+.postBtnContainer{
+  display: flex;
+  justify-content: space-around;
+  padding: 3px;
+  margin: 5px;
+}
+
+.postBtn{
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 12px;
+  font-weight: 800;
+  font-size: 2rem;
+  border: 1px solid navy;
+  color: navy;
+  max-width: 80vw;
+}
+
+.controls{
+  display: flex;
+  justify-content: space-around;
+  padding: 3px;
+  margin: 5px;
+}
+
+.cancelBtn,
+.themeBtn,
+.clearBtn{
+  width: 100%;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+@media screen and (max-width:130px){
+.cancelBtn,
+.themeBtn,
+.clearBtn{
+  font-weight: 400;
+  margin: 1px;
+}
+.postBtn{
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+}
+
+.themeBtn{
+  border: 1px solid navy;
+}
+
+.clearBtn{
+  border: 1px solid red;
+  color: red;
+}
+
+.cancelBtn{
+  border: 1px solid black;
+  color: black;
+}
+
+.clearBtn:active{
+  background-color: red;
+  color: white;
+}
+
+
+.cancelBtn:active{
+  background-color: black;
+  color: white;
+}
+
+.themeBtn:active,.postBtn:active{
+  background-color: navy;
+  color: white;
+}
+
+.cancelBtn,
+.themeBtn,
+.postBtn,
+.clearBtn{
+background-color: white;
+}
+
+.navy{
+  background-color: navy;
+}
+
+.navyProgress{
+  background-color: rgba(0, 0, 128,0.8);
+  backdrop-filter: blur(5px);
+}
+
+@media screen and (hover:hover){
+  .themeBtn:hover,.postBtn:hover{
+    background-color: navy;
+    color: white;
+  }
+ 
+  .clearBtn:hover{
+    background-color: red;
+    color: white;
+  }
+
+  .cancelBtn:hover{
+    background-color: black;
+    color: white;
+  }
+
+
+}

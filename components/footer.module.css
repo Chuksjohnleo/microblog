@@ -1,0 +1,15 @@
+.footer{
+    background:navy;
+    text-align: center;
+    color: white;
+}
+
+.lists{
+    list-style: disc;
+    list-style-type: circle;
+    color: white;
+}
+
+/* .socialIcon{
+    background-color: red;
+} */

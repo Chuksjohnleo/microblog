@@ -1,0 +1,49 @@
+.paginationBoxContainerWrapper{
+    display: flex;
+    justify-content: center;
+}
+
+.paginationBoxContainer{
+    display: flex;
+    gap: 10px;
+    margin: 10px auto;
+    overflow-x: auto;
+    max-width: 60vw;
+    border-radius: 12px;
+}
+
+.viewMoreBtn{
+    padding: 10px;
+    margin: 5px;
+    border-radius: 12px;
+    border: 1px solid navy;
+    font-weight: 900;
+    background-color: white;
+    color:navy;
+}
+
+.viewMoreBtnContainer{
+    display: flex;
+    justify-content: center;
+}
+
+.navyPageBtn{
+    background-color: navy;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 12px;
+    border: 1px solid navy;
+    font-weight: 900;
+    color: white;
+}
+
+.normalPageBtn{
+   color:navy;
+   padding: 10px;
+   margin: 5px;
+   border-radius: 12px;
+   border: 1px solid navy;
+   font-weight: 900;
+   background-color: white;
+}
+

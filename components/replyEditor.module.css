@@ -1,0 +1,106 @@
+.editorSection{
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid navy;
+    margin: 10px auto;
+}
+
+.info{
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    color: navy;
+}
+
+.reactQuilContainer{
+    border: 0px;
+    border-radius: 12px;
+}
+
+.sizeCounter{
+    text-align: right;
+    padding: 5px;
+    padding-right: 20px;
+}
+
+.submitBtnContainer{
+    display: flex;
+    justify-content: center;
+    margin: 10px auto;
+}
+
+.submitBtnContainer button{
+    padding: 5px;
+    width: 50%;
+    border-radius: 12px;
+    font-weight: 1000;
+    color: navy;
+    border: 1px solid navy;
+    font-size: 1.3rem;
+}
+
+.submitBtn{
+    background-color: white;
+}
+
+.submitBtn:hover{
+    background-color: navy;
+    color: white;
+}
+
+.otherBtnContainer{
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+    margin: 5px;
+}
+
+.otherBtnContainer button{
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 800;
+    padding: 5px;
+    background-color: white;
+}
+
+.changeBgBtn,
+.addLinkBtn{
+    border: 1px solid navy;
+}
+
+.changeBgBtn:hover,
+.addLinkBtn:hover{
+    background-color: navy;
+    color: white;
+}
+
+
+.clearBtn{
+    border: 1px solid red;
+    color: red;
+}
+
+.cancelBtn{
+    border: 1px solid black;
+    color: black;
+}
+
+@media screen and (hover:hover){
+    
+  .clearBtn:hover{
+    background-color: red;
+    color: white;
+  }
+
+
+  .cancelBtn:hover{
+    background-color: black;
+    color: white;
+  }
+}
+
+
+.navyProgress{
+    background-color: rgba(0, 0, 128,0.8);
+    backdrop-filter: blur(5px);
+  }
