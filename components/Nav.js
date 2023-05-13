@@ -7,7 +7,7 @@ import shadow from '@/components/images/shadow.svg';
 import settingIcon from '@/components/images/settingicon.svg';
 import dynamic from "next/dynamic";
 const Editor = dynamic(import("@/components/editor"), { ssr: false });
-
+import Link from 'next/link';
 
 export default function Nav({ path, majorPath, ProperNav }) {
   const [sidebar, setSidebar] = useState("closed");
@@ -93,7 +93,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
             <h1 className={styles.h11}>Chuksjohnleo</h1>
           </div>
           </div>
-          <div className={styles.action}><a href="/login" className={styles.login}>Login </a><a href="/register" className={styles.register}>Register</a></div>
+          <div className={styles.action}><Link href="/login" className={styles.login}>Login </Link><Link href="/register" className={styles.register}>Register</Link></div>
         </nav>
         <nav className={styles.nav}>
           <div className={styles.idContainer2}>
@@ -103,7 +103,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
             <h1 className={styles.h12}>Chuksjohnleo</h1>
           </div>
           <div className={styles.navIconContainer + " " + styles.infoParent}>
-            <a href="/" >
+            <Link href="/" >
               <svg
                 className={
                   majorPath === "Chuksjohnleo"
@@ -142,14 +142,14 @@ export default function Nav({ path, majorPath, ProperNav }) {
              <span style={{ zIndex: 999 }} className={styles.dsc}>
               Home
             </span>
-            </a>
+            </Link>
             {/* <span style={{ zIndex: 999 }} className={styles.dsc}>
               Home
             </span> */}
           </div>
           <div className={styles.navIconContainer + " " + styles.infoParent}>
             <span className={styles.info}>{majorPath === "Chats" ? "" : "29"}</span>
-            <a href="/chats">
+            <Link href="/chats">
               <svg
                 className={
                   majorPath === "Chats"
@@ -187,7 +187,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
              <span style={{ zIndex: 999 }} className={styles.dsc}>
               Chats
             </span>
-            </a>
+            </Link>
             {/* <span style={{ zIndex: 999 }} className={styles.dsc}>
               Chats
             </span> */}
@@ -196,7 +196,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
             <span className={styles.info}>
               {majorPath === "Notifications" ? "" : "22"}
             </span>
-            <a href="/notifications">
+            <Link href="/notifications">
               <svg
                 className={
                   majorPath === "Notifications"
@@ -225,7 +225,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
               <span style={{ zIndex: 999}} className={styles.dsc}>Notifications</span>
         
               {/* <Image  alt="icon" className={u=== 'Notifications'?styles.navIcon+' '+styles.navyBorder:styles.navIcon}  src={notificationbell}/> */}
-            </a>
+            </Link>
             {/* <span className={styles.dsc}>Notifications</span> */}
           </div>
           {visibleSearch === "invisible" ? (
@@ -368,7 +368,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
               ref={path === "Chuksjohnleo" ? currentPath : homepath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/"
                 className={
                   path === "Chuksjohnleo"
@@ -377,13 +377,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 Home
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "News" ? currentPath : newspath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/news"
                 className={
                   path === "News"
@@ -392,13 +392,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 News
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Politics" ? currentPath : politicspath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/politics"
                 className={
                   path === "Politics"
@@ -407,13 +407,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 Politics
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Learning" ? currentPath : learningpath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/learning"
                 className={
                   path === "Learning"
@@ -422,13 +422,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 Learning
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Religion" ? currentPath : religionpath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/religion"
                 className={
                   path === "Religion"
@@ -437,13 +437,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
               Religion
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Sports" ? currentPath : sportspath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/sports"
                 className={
                   path === "Sports"
@@ -452,13 +452,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 Sports
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Stories" ? currentPath : storiespath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/stories"
                 className={
                   path === "Stories"
@@ -467,13 +467,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 Stories
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "History" ? currentPath : historypath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/history"
                 className={
                   path === "History"
@@ -482,13 +482,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 History
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "LoveAndFamily" ? currentPath : loveAndFamilypath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/love_and_family"
                 className={
                   path === "LoveAndFamily"
@@ -497,13 +497,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                 Love and Family
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "ScienceAndTechnology" ? currentPath : scienceAndTechnologypath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/science_and_technology"
                 className={
                   path === "ScienceAndTechnology"
@@ -512,13 +512,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
                Science and Technology
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "PetsAndAnimals" ? currentPath : petsAndAnimalspath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/pets_and_animals"
                 className={
                   path === "PetsAndAnimals"
@@ -527,13 +527,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
               Pets and Animals
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Ict" ? currentPath : ictpath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/ict"
                 className={
                   path === "Ict"
@@ -542,13 +542,13 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
              I.C.T
-              </a>
+              </Link>
             </div>
             <div
               ref={path === "Health" ? currentPath : healthpath}
               className={styles.navBtnParent}
             >
-              <a
+              <Link
                 href="/health"
                 className={
                   path === "Health"
@@ -557,7 +557,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 }
               >
               Health
-              </a>
+              </Link>
             </div>
           </nav>
         )}

@@ -50,7 +50,7 @@ export default async function handler(req, res) {
   const filePath = `./public/uploads/${date}s${i}id${id.value.count}.${extension}`;
   fs.writeFile(filePath, imageData, 'base64', (err) => {
     if (err) {
-      console.error(err);
+      return console.error(err);
     }
     console.log('yes')
     image.src = `/uploads/${date}s${i}id${id.value.count}.${extension}`;

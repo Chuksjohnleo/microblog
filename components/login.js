@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Footer from "./footer";
 import styles from './login.module.css';
 import Nav from './Nav';
+import Link from 'next/link';
 
 export default function Login(){
 
@@ -67,7 +68,7 @@ export default function Login(){
         </div>
         <div>
             <span>Not Registered?</span>
-            <a href="/register">Register</a>
+            <Link href="/register">Register</Link>
         </div>
         </main>
         <Footer/>

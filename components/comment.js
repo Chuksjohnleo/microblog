@@ -3,6 +3,7 @@ import { Context } from "./post";
 import styles from './comment.module.css';
 import Image from 'next/image';
 import Reply from './reply';
+import Link from 'next/link';
 import dynamic from "next/dynamic";
 const ReplyEditor = dynamic(import("./replyEditor"), { ssr: false });
 
@@ -108,10 +109,10 @@ export default function Comment({post, comment, shadow, i}){
        <h1>{comment.commentId}</h1>
           <div className={styles.commentContainer}>
             <div className={styles.commenterDetails}>
-             <a href="/#" className={styles.commenterId}>
+             <Link href="/#" className={styles.commenterId}>
                 <Image className={styles.shadow} alt={comment.commenter+"pics"} width={30} height={30} src={shadow} />
                 <em className={styles.commenterName} >{comment.commenter?.length<1?'NWANONENYI CHUKWUKA':comment.commenter}</em>
-             </a>
+             </Link>
              { 
                comment.commenterId !== userContext.user.userId ? <button onClick={(e)=>userContext.follow(e, comment.commenterId)} className={styles.follow}>Follow</button>:
                ' '

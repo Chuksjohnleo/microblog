@@ -43,7 +43,7 @@ export default function Footer() {
         
           <ul className={styles.lists}>
             <li>
-              <a href="#">Developers Site</a>
+              <a href="https://chuksjohnleo.github.io">Developers Site</a>
             </li>
             <li>ok</li>
           </ul>

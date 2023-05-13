@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import styles from  './noticebar.module.css';
 import Image from "next/image";
 import shadow from '@/components/images/shadow.svg';
+import Link from 'next/link';
 
 
 
@@ -23,7 +24,7 @@ export default function Noticebar() {
           <Image src={shadow} height={200} width={200} alt={'your profile pics'} />
         </div>
         <div className={styles.userDataContainer}>
-          {userData?.userId?<strong className={styles.userData}>{`${userData.firstname} ${userData.surname}`}</strong>:<a href="login">Login to see your details</a>}
+          {userData?.userId?<strong className={styles.userData}>{`${userData.firstname} ${userData.surname}`}</strong>:<Link href="/login">Login to see your details</Link>}
         </div>
         <div className={styles.userDataContainer}>
           <em>{date}</em>
@@ -32,8 +33,8 @@ export default function Noticebar() {
       <div className={styles.sidebar}>
         {/* <div>Menu</div> */}
         <ul className={styles.sidebarList}>
-          <li className={styles.list}><a href='/login'>Login</a></li>
-          <li className={styles.list}><a href='/register'>Register</a></li>
+          <li className={styles.list}><Link href='/login'>Login</Link></li>
+          <li className={styles.list}><Link href='/register'>Register</Link></li>
           <li className={styles.list}>Settings</li>
           <li className={styles.list}>Profile</li>
         </ul>

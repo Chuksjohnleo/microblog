@@ -1,6 +1,6 @@
 import React, {useEffect, useRef} from "react";
 import styles from  './sidebar.module.css';
-
+import Link from 'next/link';
 
 export default function Sidebar() {
   return (
@@ -8,8 +8,8 @@ export default function Sidebar() {
       <div className={styles.sidebar}>
         {/* <div>Menu</div> */}
         <ul className={styles.sidebarList}>
-          <li className={styles.list}><a href='/login'>Login</a></li>
-          <li className={styles.list}><a href='/register'>Register</a></li>
+          <li className={styles.list}><Link href='/login'>Login</Link></li>
+          <li className={styles.list}><Link href='/register'>Register</Link></li>
           <li className={styles.list}>Settings</li>
           <li className={styles.list}>Profile</li>
           <li className={styles.list}>Advertisements</li>
