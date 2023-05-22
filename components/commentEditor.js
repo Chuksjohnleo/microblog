@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Progress from "./progress";
 import ReactQuill from "react-quill";
 import styles from './commentEditor.module.css';
+import { HomeContext } from "./homeLayout";
 
 
 
 export default function CommentEditor({addToComments, post, handleEditor}) {
+  const { setNavZindex } = useContext(HomeContext);
+
   const [theme, setTheme] = useState({theme:"light",backgroundColor:"white",color:"black"});
   const [content, setContent] = useState('');
   const [userId,setUserId] = useState('U1');
@@ -80,6 +83,7 @@ function comment(){
         setStatus(true);
         localStorage.setItem('text',response.comment);
         handleEditor();
+        setNavZindex(2)
         addToComments(response.comment)
         // setTimeout(()=>location.reload(),5000)
       }
@@ -103,25 +107,12 @@ useEffect(()=>{
   setContent(localStorage.getItem(post.id.toString()));
 }
 
+setNavZindex(-1)
 const commentEditor = document.getElementById('commentEditor');
-commentEditor.querySelector('.ql-snow').style = 'border-radius:12px 12px 0 0;border-bottom:0px';
-commentEditor.querySelector('.ql-container').style = 'border-top:1px solid navy;border-bottom:1px solid navy;';
-const qlEditor = commentEditor.querySelector('.ql-editor');
+commentEditor.querySelector('.ql-editor').style.maxHeight = '50vh';
+// commentEditor.querySelector('.ql-snow').style = 'border-radius:12px 12px 0 0;border-bottom:0px';
+// commentEditor.querySelector('.ql-container').style = 'border-top:1px solid navy;border-bottom:1px solid navy;';
 
-qlEditor.style = ` 
-  box-sizing: border-box;
-  line-height: 1.42;
-  max-height: 50vh;
-  max-width:750px;
-  outline: none;
-  overflow-y: auto;
-  padding: 12px 15px;
-  tab-size: 4;
-  -moz-tab-size: 4;
-  text-align: left;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  `
 },[]);
 
 useEffect(()=>{
@@ -178,7 +169,7 @@ const formats = [
 ]
   
 return (
-   <section  className={styles.editorSection}>
+   <section style={{zIndex: 999}}  className={styles.editorSection}>
      <div className={styles.editorContainer}>
       <div className={styles.editor}>
         <div id="commentEditor" style={{backgroundColor:theme.backgroundColor,color:theme.color}} className={styles.reactQuilContainer}>
@@ -199,7 +190,10 @@ return (
           {/* <button className={styles.changeBgBtn} onClick={changeBg}>Change theme</button> */}
           <button onClick={()=>setContent('')} className={styles.clearBtn} >Clear</button>
           {/* <button className={styles.addLinkBtn} onClick={addLink}>link</button> */}
-          <button className={styles.cancelBtn} onClick={handleEditor}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={()=>{
+            handleEditor();
+            setNavZindex(2)
+            }}>Cancel</button>
         </div>
       </div>
      </div>

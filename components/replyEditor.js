@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Progress from './progress';
 import ReactQuill from "react-quill";
+import styles from './replyEditor.module.css';
+import { HomeContext } from "./homeLayout";
 
 
 export default function ReplyEditor({post, replyTo, theComment, closeEditor, i, resetReplies}) {
+  const { setNavZindex } = useContext(HomeContext);
+  
   const [theme, setTheme] = useState({theme:"light",backgroundColor:"white",color:"black"});
   const [content, setContent] = useState('');
   const [userId,setUserId] = useState('U1');
@@ -82,6 +86,7 @@ function reply(){
      if(response.reply){
       resetReplies(response.reply);
       closeEditor();
+      setNavZindex(2);
       setProgress(false);
       setStatus(false);
      }
@@ -100,27 +105,12 @@ useEffect(()=>{
     setUsername(`${userdata.firstname} ${userdata.surname}`);
   }
 
-const replyEditor = document.getElementById('replyEditor'+i);
 const replyEditorSection = document.getElementById('replyEditorSection'+i);
+
+setNavZindex(-1)
+
 replyEditorSection.scrollIntoView({block:'center'});
-
-replyEditor.querySelector('.ql-snow').style = 'border-top:1px solid navy;border-bottom:0px';
-replyEditor.querySelector('.ql-container').style = 'border-top:1px solid navy;border-bottom:1px solid navy;';
-const qlEditor = replyEditor.querySelector('.ql-editor');
-
-qlEditor.style = ` 
-  box-sizing: border-box;
-  line-height: 1.42;
-  max-height: 50vh;
-  outline: none;
-  overflow-y: auto;
-  padding: 12px 15px;
-  tab-size: 4;
-  -moz-tab-size: 4;
-  text-align: left;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  `
+replyEditorSection.querySelector('.ql-editor').style.maxHeight = '50vh';
 },[]);
 
 useEffect(()=>{
@@ -130,6 +120,7 @@ useEffect(()=>{
   console.log(contentSize/1024 + ' kb');
  
 },[content]);
+
 
 // const modules = {
 //   toolbar: {
@@ -178,11 +169,11 @@ const formats = [
 
 
 return (
-   <section id={'replyEditorSection'+i}  className={styles.editorSection}>
+   <section style={{zIndex:999}} id={'replyEditorSection'+i}  className={styles.editorSection}>
      <div className={styles.editorContainer}>
       <div className={styles.editor}>
-        <div id={"replyEditor"+i} style={{backgroundColor:theme.backgroundColor,color:theme.color}} className={styles.reactQuilContainer}>
-          <strong className={styles.info}>{`Replying to ${replyTo.username} on {theComment.commenter}'s comment`}</strong>
+        <div id={"replyEditor"+i} style={{backgroundColor:theme.backgroundColor,color:theme.color, zIndex:999}} className={styles.reactQuilContainer}>
+          <strong className={styles.info}>{`Replying to ${replyTo.username} on ${theComment.commenter}'s comment`}</strong>
           <ReactQuill  
            placeholder="Write your reply here"
            value={content}
@@ -199,7 +190,10 @@ return (
           <button onClick={()=>setContent('')} className={styles.clearBtn} >Clear</button>
           {/* <button className={styles.changeBgBtn} onClick={changeBg}>Change theme</button> */}
           {/* <button className={styles.addLinkBtn} onClick={addLink}>link</button> */}
-          <button className={styles.cancelBtn} onClick={closeEditor}>Cancel</button>
+          <button className={styles.cancelBtn} onClick={()=>{
+            closeEditor();
+            setNavZindex(2)
+            }}>Cancel</button>
         </div>
       </div>
      </div>

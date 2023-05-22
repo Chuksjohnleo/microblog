@@ -1,6 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
-import Nav from "@/components/Nav";
 import Footer from "@/components/footer";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
@@ -21,7 +19,7 @@ export async function getServerSideProps() {
     let posts = []
     try {
       await client.connect();
-      const db = client.db("posts");
+      const db = client.db("microblog");
       const categories = [
         'News','Politics','Learning','Religion','Sports',
         'Stories','History','LoveAndFamily',
@@ -128,6 +126,7 @@ export default function Home({posts}) {
       <HomeLayout path={"Chuksjohnleo"} majorPath={"Chuksjohnleo"} >
       
       <main className={styles.main}>
+        <h1 className={styles.h1}>Chuksjohnleo Home</h1>
         {/* <button onClick={fetcher}>Test</button> */}
         <Sorting sorting={sorting} sortSetting={sortSetting} />
         <hr/>

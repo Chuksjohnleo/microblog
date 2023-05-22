@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
 try {
     await client.connect();
-    const db = client.db("posts");
+    const db = client.db("microblog");
     const category = db.collection(req.body.category);
     const counter = db.collection("counter");
     // const c = db.collection('Learning')

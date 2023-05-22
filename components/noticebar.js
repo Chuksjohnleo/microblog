@@ -11,7 +11,7 @@ export default function Noticebar() {
   const [date, setDate] = useState('')
   useEffect(()=>{
    const userdata = JSON.parse(localStorage.getItem('userdata'));
-   console.log(userdata)
+   
    setUserData(userdata);
    let date = new Date();
    setDate(date.toDateString())

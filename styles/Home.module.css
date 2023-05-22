@@ -8,6 +8,11 @@
   margin: auto;
 }
 
+.h1{
+  text-align: center;
+  margin: 5px;
+}
+
 .sorting{
   padding: 10px;
 }

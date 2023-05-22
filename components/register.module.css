@@ -1,3 +1,99 @@
 .container{
     text-align: center;
 }
+
+.homeLink{
+    margin:10px;
+    border:1px solid navy;
+    border-radius: 12px;
+    padding: 5px;
+    color: navy;
+    display: inline-block;
+}
+
+
+.homeLink:active,
+.regBtn:active{
+    background-color: navy;
+    color: white;
+}
+
+.errorMessage{
+    color: red;
+}
+
+.dataInputContainer{
+    border : 1px solid navy;
+    border-radius: 12px;
+    margin: 15px auto;
+    max-width: 80vw;
+    padding: 10px;
+    font-weight: 800;
+}
+
+.genderInput,
+.textInput{
+    border: 1px solid navy;
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 12px;
+}
+
+.genderInput{
+    display: flex;
+    justify-content: space-around;
+}
+
+.dataInputContainer input:focus{
+    outline:3px solid navy;
+}
+
+
+.dataInputContainer input::placeholder,
+.dataInputContainer input{
+    font-weight: 800;
+}
+
+.regBtn{
+    border: 1px solid navy;
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: x-large;
+    background-color: white;
+}
+
+.regBtn:disabled{
+    background-color: rgb(0, 0, 128, 0.2);
+}
+
+
+.loginSuggestionContainer{
+    font-weight: 800;
+    margin: 5px;
+}
+
+.loginSuggestionContainer a{
+    color: navy;
+    margin: 3px;
+}
+
+@media screen and (hover:hover){
+    
+.regBtn:hover{
+    background-color: navy;
+    color: white;
+}
+
+.regBtn:hover *{
+    fill: white;
+}
+
+    .homeLink:hover{
+        background-color: navy;
+        color: white;
+    }
+ }

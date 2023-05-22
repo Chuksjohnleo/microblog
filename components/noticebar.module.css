@@ -20,7 +20,8 @@
     padding: 5px;
     border-radius: 12px;
     cursor: pointer;
-    width: 80%;
+    width: 20vw;
+    font-weight: 900;
 }
 
 .list a{

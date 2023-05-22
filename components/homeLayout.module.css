@@ -6,13 +6,15 @@
   display: none;
 }
 
-@media screen and (min-width:900px){
-    .posts{
-        max-width: 45vw;
-    }
+.mains{
+    background-color: white;
+    /* max-width: 80vw; */
+}
 
+@media screen and (min-width:1000px){
     .generalContainer{
         display: flex;
+
     }
 
     .sidebarContainer{
@@ -22,7 +24,7 @@
       }
 
     .mains{
-        width: 50vw;
+        width: 40vw;
     }
     
     .sidebar{
@@ -30,7 +32,11 @@
        top: 120px;
        height: calc(100vh - 120px);
        overflow-y: auto;
-       width: 23.5vw;
+       width: 29vw;
+    }
+
+    .navContainers{
+        width: 26vw;
     }
 
     .sidebarOpen::-webkit-scrollbar{

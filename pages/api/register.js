@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
 try {
     await client.connect();
-    const db = client.db("posts");
+    const db = client.db("microblog");
     const users = db.collection('users');
     const counter = db.collection("userCount");
    

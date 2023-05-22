@@ -1,18 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import Sidebar from "./sidebar";
 import Image from "next/image";
 import logo from "./images/logo.svg";
 import styles from "./nav.module.css";
-import shadow from '@/components/images/shadow.svg';
-import settingIcon from '@/components/images/settingicon.svg';
-import dynamic from "next/dynamic";
-const Editor = dynamic(import("@/components/editor"), { ssr: false });
+import { HomeContext } from "./homeLayout";
 import Link from 'next/link';
 
-export default function Nav({ path, majorPath, ProperNav }) {
+export default function Nav({ path, majorPath }) {
+ 
+  const { navPosition, navZindex } = useContext(HomeContext);
+ 
   const [sidebar, setSidebar] = useState("closed");
   const [visibleSearch, setVisibleSearch] = useState("invisible");
-  const [editor, setEditor] = useState("invisible");
+
 
   const currentPath = useRef(null);
   const homepath = useRef(null);
@@ -32,18 +32,14 @@ export default function Nav({ path, majorPath, ProperNav }) {
   const searchRef = useRef(null);
 
   function currentPathStyle() {
+    
     currentPath?.current?.scrollIntoView({ behaviour: "smooth" });
   }
 
-  // function openAndCloseEditor() {
-  //   if (editor === "invisible") setEditor("visible");
-  //   else setEditor("invisible");
-  // }
-
-  // useEffect(() => {
-  //   if (majorPath === "Chats" || majorPath === "Notifications") return;
-  //   currentPathStyle();
-  // });
+  useEffect(() => {
+    if (majorPath === "Chats" || majorPath === "Notifications") return;
+    currentPathStyle();
+  });
 
   function openAndCloseSiderbar() {
     const html = document.querySelector("html");
@@ -63,26 +59,25 @@ export default function Nav({ path, majorPath, ProperNav }) {
     else return setVisibleSearch("visible");
   }
   
-  useEffect(() => {
-    window.scrollTo(0,0)
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 900){
+  
+
+  useEffect(()=>{
+      window.addEventListener("resize", () => {
+      if (window.innerWidth > 1000){
         document.querySelector("html").style.overflow = 'auto';
         return setSidebar("closed");
       }
     });
-  },[editor]);
-
-  useEffect(()=>{
-    window.scrollTo(0,0)
+    window.scrollTo(0,0);
   }, [])
 
-  
+  // document.getElementById('header').scrollIntoView();
 
   //  document.getElementById('Home').scrollIntoView()
   return (
     <>
-      <header style={editor==='visible'?{position:'static'}:{postion:'sticky'}} className={styles.header}>
+      <div id="header" style={{position: navPosition, zIndex: navZindex}} className={styles.header}>
+        <div id='nextRouteAnnouncer' className={styles.nextRouteAnnouncer}></div>
         <nav className={styles.important} style={{ color: "navy" }}>
           <div className={styles.h11Container}>
           <div className={styles.idContainer1}>
@@ -139,7 +134,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
               }
               src={homeicon}
             /> */}
-             <span style={{ zIndex: 999 }} className={styles.dsc}>
+             <span style={{ zIndex: 99 }} className={styles.dsc}>
               Home
             </span>
             </Link>
@@ -184,7 +179,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
               }
               src={chaticon}
             /> */}
-             <span style={{ zIndex: 999 }} className={styles.dsc}>
+             <span style={{ zIndex: 99 }} className={styles.dsc}>
               Chats
             </span>
             </Link>
@@ -194,7 +189,8 @@ export default function Nav({ path, majorPath, ProperNav }) {
           </div>
           <div className={styles.navIconContainer + " " + styles.infoParent}>
             <span className={styles.info}>
-              {majorPath === "Notifications" ? "" : "22"}
+              {majorPath === "Notifications" ? "" : "202"}
+             {/* if the user in in notification page, the number of notification clears */}
             </span>
             <Link href="/notifications">
               <svg
@@ -222,7 +218,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
                   />
                 </g>
               </svg> 
-              <span style={{ zIndex: 999}} className={styles.dsc}>Notifications</span>
+              <span style={{ zIndex: 99}} className={styles.dsc}>Notifications</span>
         
               {/* <Image  alt="icon" className={u=== 'Notifications'?styles.navIcon+' '+styles.navyBorder:styles.navIcon}  src={notificationbell}/> */}
             </Link>
@@ -272,7 +268,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
                   alt="search icon"
                   src={searchicon}
                 /> */}
-                <span style={{ zIndex: 999 }} className={styles.dsc}>Search</span>
+                <span style={{ zIndex: 99 }} className={styles.dsc}>Search</span>
                 </button>
               </div>
             </>
@@ -309,7 +305,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
                 <span
                   className={styles.dsc}
                   style={{
-                    zIndex: 999
+                    zIndex: 99
                   }}
                 >
                   Close
@@ -360,8 +356,11 @@ export default function Nav({ path, majorPath, ProperNav }) {
             <button className={styles.searchButton}>Search</button>
           </div>
         </nav>
+          {/* if then current path(page) is Notifications or
+            Chat path the categories nav will not be visible
+         */}
         {majorPath === "Chats" || majorPath === "Notifications" ? (
-          <ProperNav />
+          ''
         ) : (
           <nav className={styles.navBtnContainer}>
             <div
@@ -561,39 +560,7 @@ export default function Nav({ path, majorPath, ProperNav }) {
             </div>
           </nav>
         )}
-      </header>
-      {/* {
-           path === "Notifications" 
-        || path === "Chats" 
-        || path === "Login"
-        || path === "Register"
-         ? (
-        <></>
-      ) : (
-        <>
-        <div>
-          {editor === "visible" ? (
-            <div>
-              <Editor path={path} openAndCloseEditor={openAndCloseEditor} />
-            </div>
-          ) : (
-            <div className={styles.posting}>
-              <Image className={styles.profilePics} src={shadow} height={40} width={40} alt="Your profile picture"/>
-              <button onClick={openAndCloseEditor} className={styles.postbtn}>
-                Post on {path==='Ict'?'I.C.T'
-                :path === 'PetsAndAnimals'?'Pets and Animals'
-                :path === 'LoveAndFamily'?'Love and Family'
-                :path === 'ScienceAndTechnology'? 'Science and Technology'
-                :path
-              } ✍️
-              </button>
-              <Image className={styles.settingIcon} src={settingIcon} height={40} width={40} alt="Settings"/>
-            </div>
-          )}
-        </div>
-        <hr/>
-        </>
-      )} */}
+      </div>
     </>
   );
 }

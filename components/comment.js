@@ -17,7 +17,10 @@ export default function Comment({post, comment, shadow, i}){
     const [repliesIsLoading, isRepliesStillLoading] = useState('no');
     const [replies,setReplies] = useState([]);
     const [likedReplies, setLikedReplies] = useState([]);
-    const [replyCount, setReplyCount] = useState(comment.replyCount)
+    const [replyCount, setReplyCount] = useState(comment.replyCount);
+    const [commentLength, setCommentLength] = useState('collapsed');
+    const [clicked, setClicked] = useState(false);
+
     const [replyTo,setReplyTo] = useState({
       username: comment.commenter,
       userId: comment.commenterId
@@ -60,7 +63,7 @@ export default function Comment({post, comment, shadow, i}){
           setHasFetchedReplies(true);
         }
        setLikedReplies(resp.liked);
-       console.log(resp.liked)
+      //  console.log(resp.liked)
       })
       .catch(e=>{
           console.log(e)
@@ -77,7 +80,7 @@ export default function Comment({post, comment, shadow, i}){
           userId: replyingTo.replierId
         })
 
-     console.log(replyingTo)
+    //  console.log(replyingTo)
      }
     }
 
@@ -96,6 +99,20 @@ export default function Comment({post, comment, shadow, i}){
     }
 
     useEffect(()=>{
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(comment.comment,"text/html");
+        const body = doc.childNodes[0].childNodes[1]; //html = [head, body] this var stores the content of the body tag
+        body.innerText.length<200
+        && body.querySelectorAll('img').length<1?
+        setCommentLength('full'):
+        body.innerText.length<50
+        && body.querySelectorAll('img').length>3?
+        setCommentLength('collasped'):
+        body.innerText.length<500?
+        setCommentLength('full'):
+        setCommentLength('collapsed');
+        const tbc = `wait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - comait - compiling... event - com`
+        console.log(tbc.length,body.innerText.length + ' id = '+comment.commentId)
         const theDate = new Date(comment.date);
         return setDate(theDate.toLocaleString())//.toDateString())
       },[]);
@@ -103,7 +120,9 @@ export default function Comment({post, comment, shadow, i}){
     useEffect(()=>{
         const replyEditorSection = document.getElementById('replyEditorSection'+i);
         replyEditorSection?.scrollIntoView({block:'center'});
-      },[replyTo])
+      },[replyTo]);
+
+
     return(
         <>
        <h1>{comment.commentId}</h1>
@@ -119,7 +138,22 @@ export default function Comment({post, comment, shadow, i}){
              }
              <div className={styles.date}>{date}</div>
             </div><hr/> 
-            <article className={styles.comment} dangerouslySetInnerHTML={{__html:comment.comment}}/>
+            <article id={`comment${comment.commentId}`} className={commentLength==='full'?styles.fullComment:styles.comment} dangerouslySetInnerHTML={{__html:comment.comment}}/>
+            {commentLength==='full' && clicked===false?'':
+             commentLength==='full' && clicked===true?
+              <div><button 
+               onClick={()=>{
+                 setCommentLength('collapsed');
+                 setClicked(false);
+                 document.getElementById(`comment${comment.commentId}`).scrollIntoView({behaviour: 'smooth'})
+                 }
+                } className={styles.likeBtn}>Collapse</button></div>:
+                <div><button 
+                   onClick={()=>{
+                    setCommentLength('full');
+                    setClicked(true);
+                    }
+                   } className={styles.likeBtn+' '+styles.readMoreBtn}>Read More</button></div>}
             <div className={styles.actionsContainer}>
               <button className={styles.likeBtn}>Like</button>
               <button onClick={()=>handleEditor({

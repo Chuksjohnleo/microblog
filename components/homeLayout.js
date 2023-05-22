@@ -1,27 +1,38 @@
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import styles from './homeLayout.module.css';
 import Nav from './Nav';
-import Footer from "./footer";
-import Pagination from "./pagination";
 import PostNav from "./postNav";
 import Sidebar from "./sidebar";
 import Noticebar from "./noticebar";
 
 
 
-export const Context = React.createContext();
+export const HomeContext = createContext();
 
 export default function HomeLayout({children, path, majorPath}) {
+ const [navPosition, setNavPosition] = useState('sticky');
+ const [navZindex, setNavZindex] = useState(2);
 
+ useEffect(()=>{
+ console.log(navPosition)
+},[navPosition])
 
   return (
-<>
+<HomeContext.Provider
+ value={{
+   component: 'Homelayout',
+   navZindex: navZindex,
+   navPosition: navPosition,
+   setNavZindex: setNavZindex,
+   setNavPosition: setNavPosition
+ }}
+>
   <Nav path={path} majorPath={majorPath} />
   <div className={styles.generalContainer}>
   <div className={styles.sidebarContainer}> 
         <nav className={styles.sidebar}>
-          <Noticebar />
+        <div className={styles.navContainers}><Noticebar /></div>
         </nav>
       </div>
     <div className={styles.mains}>
@@ -31,10 +42,10 @@ export default function HomeLayout({children, path, majorPath}) {
     </div>
       <div className={styles.sidebarContainer}> 
         <nav className={styles.sidebar}>
-          <Sidebar />
+          <div className={styles.navContainers}><Sidebar /></div>
         </nav>
       </div>
     </div>
-    </>
+    </HomeContext.Provider>
   );
 }

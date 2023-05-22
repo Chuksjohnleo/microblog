@@ -2,10 +2,16 @@
     font-weight: 600;
     position: sticky;
     top: 0;
-    z-index: 999;
-    max-height: 170px;
+    z-index: 2;
+    max-height: 180px;
     backdrop-filter: blur(3px);
     background:rgba(255, 255, 255,0.9);
+}
+
+.nextRouteAnnouncer{
+    height: 0px;
+    width: 0vw;
+    background-color: navy;
 }
 
 .navyBorder{
@@ -159,7 +165,7 @@ text-align: center;
     flex-grow: 0;
 }
 
-@media screen and (min-width:900px){
+@media screen and (min-width:1000px){
 
     .navBtnContainer{
       width: 100% ;
@@ -434,6 +440,10 @@ align-items: center;
     transition: 1s;
     border: 1px solid navy;
     font-family: var(--font-mono);
+}
+
+.postingContainer{
+    background-color: white;
 }
 
 .postbtn:active{

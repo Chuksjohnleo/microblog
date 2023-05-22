@@ -1,6 +1,5 @@
-import console from 'console';
-import fs from 'fs';
-import {JSDOM} from 'jsdom';
+import { saveRichTextWithImages } from '@/libs/saveComment';
+import { JSDOM } from 'jsdom';
 import { MongoClient } from "mongodb";
 const uri = process.env.DB_PASS;
 
@@ -14,71 +13,54 @@ const uri = process.env.DB_PASS;
 
 
 export default async function handler(req, res) {
+  const {postId, comment, commenter, commenterId, category} = req.body;
   if (req.method === "POST") {
-    const client = new MongoClient(uri);
 
-    await client.connect();
-    const db = client.db("posts");
-    const counter = db.collection("commentCounter");
-    // const c = db.collection('Learning')
-  //  let v = await counter.deleteMany({})
-  //  let cf= await c.deleteMany({})
-  //   await client.close();
-  //   return console.log(v,cf)
-    const id = await counter.findOneAndUpdate(
-      { _id: "comment_id" },
-      { $inc: { count: 1 } },
-      { upsert: true, returnDocument: "after" }
-    );
-
-    const dom = new JSDOM(req.body.comment);
+    const dom = new JSDOM(comment);
     const document = dom.window.document;
     const images = document.querySelectorAll('img');
-    let imagesSrc = [];
-
-  images.forEach((image,i)=>{
-  const date = Date.now();
-  const imageDataUrl = image.getAttribute('src');
-  const imageData = imageDataUrl.split(',')[1];
-  const extension = imageDataUrl.match(/\/([a-zA-Z0-9]+);/)[1];
-
-  const filePath = `./public/comment-uploads/${date}s${i}commentId${id.value.count}.${extension}`;
-  fs.writeFile(filePath, imageData, 'base64', (err) => {
-    if (err) {
-      console.error(err);
+  
+    if(images.length > 0){
+     return saveRichTextWithImages(comment, commenter, saveCommentWithImages);
+    }else{
+     return savePost()
     }
-    console.log('yes')
-    image.src = `/comment-uploads/${date}s${i}commentId${id.value.count}.${extension}`;
-    image.alt = `comment-image-${date}-s${i}id${id.value.count} by ${req.body.commenter}`;
-    imagesSrc.push(image.src);
-    })
- });
- 
-    await client.close();
-
-try {
-      await client.connect();
-      const db = client.db("posts");
-      const category = db.collection(req.body.category);
-      const comments = db.collection(req.body.category+'Comments');
-      
 
 
-   try { 
-       const data =   await comments.insertOne({
-          postId: req.body.postId,
-          commenter: req.body.commenter,
-          commenterId: req.body.commenterId,
+async function savePost(){
+       const client = new MongoClient(uri);
+       await client.connect();
+
+  try { 
+       const db = client.db("microblog");
+       const counter = db.collection("CommentCounter");
+       const commentCategory = db.collection(category);
+       const comments = db.collection(category+'Comments');
+
+       const id = await counter.findOneAndUpdate(
+         { _id: "comment_id" },
+         { $inc: { count: 1 } },
+         { upsert: true, returnDocument: "after" }
+        );
+
+        const data =   await comments.insertOne({
+          postId: postId,
+          commenter: commenter,
+          commenterId: commenterId,
           commentId: 'c'+id.value.count,
-          comment: document.querySelector('body').innerHTML,
-          category: req.body.category,
+          comment: `<div class='ql-container ql-snow richTextContainer' >
+                     <div class='ql-editor richText'>
+                      ${ comment }
+                     </div>
+                    </div>`,
+          category: category,
           date: Date(),
           replyCount: 0,
           likes: 0,
           shares: 0
         });
     if(data.acknowledged === true){
-      const incrementCommentCount =  await category.updateOne({ id: req.body.postId },{
+      const incrementCommentCount =  await commentCategory.updateOne({ id: req.body.postId },{
         $inc:{ commentCount: 1 }
       });
       console.log(incrementCommentCount)
@@ -91,15 +73,66 @@ try {
 
       if(data.acknowledged===true) res.json({comment: addedComment});
     
-     
-      } catch (e) {
-        res.json(e);
-      }
     } catch (e) {
       res.json("error");
-      if (e) console.log(e);
+      console.log(e);
     } finally {
       await client.close();
     }
+   }
+
+   
+async function saveCommentWithImages(id, commentBody, imagesSrc){
+  const client = new MongoClient(uri);
+  await client.connect();
+
+try { 
+
+  const db = client.db("microblog");
+  const commentCategory = db.collection(category);
+  const comments = db.collection(category+'Comments');
+
+  const data =   await comments.insertOne({
+    postId: postId,
+    commenter: commenter,
+    commenterId: commenterId,
+    commentId: 'c'+id,
+    comment: `<div class='ql-container ql-snow richTextContainer' >
+               <div class='ql-editor richText'>
+                ${ commentBody }
+               </div>
+              </div>`,
+    category: category,
+    date: Date(),
+    imagesSrc: imagesSrc,
+    replyCount: 0,
+    likes: 0,
+    shares: 0
+  });
+if(data.acknowledged === true){
+const incrementCommentCount =  await commentCategory.updateOne({ id: req.body.postId },{
+  $inc:{ commentCount: 1 }
+});
+console.log(incrementCommentCount)
+}
+
+const addedComment = await comments.findOne({ 
+commenterId: commenterId,
+commentId: 'c'+id},
+{projection:{_id:0}})
+
+if(data.acknowledged===true){
+  res.json({comment: addedComment});
+}
+
+
+} catch (e) {
+ res.json("error");
+ console.log(e);
+} finally {
+ await client.close();
+}
+}
+
   } else res.json("chai");
 }

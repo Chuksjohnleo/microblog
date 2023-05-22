@@ -1,18 +1,24 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import shadow from '@/components/images/shadow.svg';
 import styles from './nav.module.css';
 import Image from "next/image";
 import settingIcon from '@/components/images/settingicon.svg';
 import dynamic from "next/dynamic";
 const Editor = dynamic(import("@/components/editor"), { ssr: false });
-
+import { HomeContext } from "./homeLayout";
 
 export default function PostNav({path}){
+    
+    const { setNavPosition } = useContext(HomeContext);
 
-    const [editor, setEditor] = useState("invisible");
+    const [editor, setEditor] = useState("hidden");
+
     function openAndCloseEditor() {
-        if (editor === "invisible") setEditor("visible");
-        else setEditor("invisible");
+        if (editor === "hidden") setEditor("visible");
+        else{ 
+          setEditor("hidden");
+          setNavPosition('sticky')
+        }
       }
     
     return(
@@ -26,7 +32,7 @@ export default function PostNav({path}){
         <></>
       ) : (
         <>
-        <div>
+        <div className={styles.postingContainer}>
           {editor === "visible" ? (
             <div>
               <Editor path={path} openAndCloseEditor={openAndCloseEditor} />

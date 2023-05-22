@@ -8,7 +8,7 @@ export default async function handler(req, res) {
 
 try {
     await client.connect();
-    const db = client.db("posts");
+    const db = client.db("microblog");
     const followers = db.collection(req.body.userId+'Followers');
 
     const follow = await followers.insertOne({

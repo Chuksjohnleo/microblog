@@ -14,13 +14,14 @@
     padding: 0.5rem;
     max-width: 800px;
     margin: auto;
+    background-color: white;
   }
 
 .container{
     border-radius: 12px;
-    padding: 10px;
+    padding: 2px;
     padding-bottom: 0px;
-    margin:20px 10px;
+    margin: 2px 1px;
     border: 1px solid navy;
 }
 
@@ -44,8 +45,8 @@
 
 /* Rich Text post body starts */
 .postBody{
-    margin: 10px 5px;
-    max-width: 80vw;
+    margin: 1px 2px;
+    /* max-width: 80vw; */
 }
 
 .postBody *{
@@ -328,11 +329,11 @@ left: 30%;
 
 
 
-@media screen and (min-width:900px){
+@media screen and (min-width:1000px){
     .postBody,
     .commentBox,
     .posts{
-        max-width: 45vw;
+        max-width: var(--post-width);
     }
 
     .generalContainer{

@@ -1,7 +1,7 @@
 import Post from "@/components/post";
-import Nav from "@/components/Nav";
 import { MongoClient } from "mongodb";
-import shadow from '@/components/images/shadow.svg'
+import shadow from '@/components/images/shadow.svg';
+import Head from "next/head";
 
 
 
@@ -12,7 +12,7 @@ export async function getStaticProps({params}){
     let post;
     try {
       await client.connect();
-      const db = client.db("posts");
+      const db = client.db("microblog");
       const category = db.collection('Health');
       const commentCollection = db.collection('HeathComments');
      
@@ -40,7 +40,7 @@ export async function getStaticPaths() {
     let pathsArr;
     try {
       await client.connect();
-      const db = client.db("posts");
+      const db = client.db("microblog");
       const category = db.collection('Health');
       pathsArr = await category.find({},{projection:{_id:0,id:1}}).toArray();
       // console.log(pathsArr)
@@ -64,6 +64,12 @@ export default function Learning({post}){
     // console.log(post)
     return(
     <>
+      <Head>
+        <title>{`Health: ${post.title} | Chuksjohnleo Blogs`}</title>
+        <meta name="description" content={post.description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon_io/favicon.ico" />
+      </Head>
       <div>
         <Post shadow={shadow} post={post}/>
       </div>

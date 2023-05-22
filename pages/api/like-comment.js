@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     const client = new MongoClient(uri);
 
     await client.connect();
-    const db = client.db("posts");
+    const db = client.db("microblog");
 
     
     const replies = db.collection(req.body.category+'Replies');

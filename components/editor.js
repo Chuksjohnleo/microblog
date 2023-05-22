@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import Status from "./status";
 import Progress from "./progress";
 import styles from "./editor.module.css";
 import ReactQuill from "react-quill";
+import { HomeContext } from "./homeLayout";
+import { patchFetch } from "next/dist/server/lib/patch-fetch";
 // import "quill/dist/quill.snow.css";
 
 
-export default function Editor({path,openAndCloseEditor}) {
+export default function Editor({ path, openAndCloseEditor }) {
+  
+  const { setNavPosition } = useContext(HomeContext);
+
+
   const [theme, setTheme] = useState({theme:"light",backgroundColor:"white",color:"black"});
   const [content, setContent] = useState('');
-  const [title,setTitle] = useState('');
-  const [description,setDescription] = useState('');
-  const [userId,setUserId] = useState('U1');
-  const [username,setUsername] = useState('Chuks Commenter');
-  const [category,setCategory] = useState('');
-  const [descriptionCounter,setDescriptionCounter] = useState(0);
-  const [postType,setPostType] = useState('richText');
-  const [normalText,setNormalText] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [userId, setUserId] = useState('U1');
+  const [username, setUsername] = useState('Chuks Commenter');
+  const [category, setCategory] = useState('');
+  const [descriptionCounter, setDescriptionCounter] = useState(0);
+  const [postType, setPostType] = useState('richText');
+  const [normalText, setNormalText] = useState('');
   const [linkText,setLinkText] = useState('');
   const [error, setError] = useState(false);
-  const [progress,setProgress] = useState(false);
-  const [status,setStatus] = useState(false);
+  const [progress, setProgress] = useState(false);
+  const [status, setStatus] = useState(false);
+  const [postId, setPostId] = useState('');
   
   
   const quillRef = React.useRef(null);
@@ -115,10 +122,10 @@ function postRichText(){
   }).then(r=>r.json())
     .then(response=>{
       console.log(response)
-      if(response==='yes'){
+      if(response.status==='success'){
         setStatus(true);
+        setPostId(response.postId);
       }
-      localStorage.setItem('text',response.postBody)
     })
     .catch(e=>{
       console.log('error:'+e);
@@ -233,6 +240,9 @@ useEffect(()=>{
   // console.log(localStorage.getItem(path))
 },[content]);
 
+useEffect(()=>{
+  setNavPosition('static')
+},[])
 
 useEffect(()=>{
   handleDescription();
@@ -240,6 +250,7 @@ useEffect(()=>{
   getCategory();
 
 });
+
 
 // const modules = {
 //   toolbar: {
@@ -307,7 +318,13 @@ const formats = [
 
 return (
     <section className={styles.editorSection}>
-      {status===true?<Status text={'Posted'} handler={openAndCloseEditor}/>:''}
+      {status===true?
+        <Status 
+         text={'Posted'} 
+         postId={postId} 
+         path={path} 
+         category={category}
+         />:''}
       <div className={styles.editorContainer}  >
       <div className={styles.postTypes}>
         <div className={styles.postTypeContainer}>
@@ -327,7 +344,7 @@ return (
        {path=== 'Chuksjohnleo'?
        <div className={styles.categoriesContainer}>
        <label htmlFor="categories">choose category</label>
-        <select className={styles.select} value={category} onChange={(e)=>getCategory(e)} name="categories">
+        <select id="categories" className={styles.select} value={category} onChange={(e)=>getCategory(e)} name="categories">
           <optgroup label="categories">
             <option value={'none'}>None</option>
             <option value={'News'}>News</option>
@@ -353,7 +370,7 @@ return (
       <> 
        <div className={styles.titleContainer}>
          <label htmlFor="title" className={styles.titleInputLabel}>Title</label>
-         <input value={title} onInput={(e)=>handleTitle(e)} type='text' placeholder="Write the title of your post" name="title" className={styles.title} />
+         <input value={title} onInput={(e)=>handleTitle(e)} type='text' placeholder="Write the title of your post" id="title" name="post-title" className={styles.title} />
         </div>
   
       <div className={styles.detail}>

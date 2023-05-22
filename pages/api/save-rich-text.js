@@ -1,6 +1,5 @@
-import console from 'console';
-import fs from 'fs';
-import {JSDOM} from 'jsdom';
+import { saveRichTextWithImages } from '@/libs/savePost';
+import { JSDOM } from 'jsdom';
 import { MongoClient } from "mongodb";
 const uri = process.env.DB_PASS;
 
@@ -14,71 +13,47 @@ const uri = process.env.DB_PASS;
 
 
 export default async function handler(req, res) {
+  const {post, poster, title, description, category} = req.body;
   if (req.method === "POST") {
-    const client = new MongoClient(uri);
 
-    await client.connect();
-    const db = client.db("posts");
-    const counter = db.collection("counter");
-
-    
-  //   const c = db.collection(req.body.category)
-  //  let v = await counter.deleteMany({})
-  //  let cf= await c.deleteMany({})
-  //   await client.close();
-  //   return console.log(v,cf)
-
-
-
-    const id = await counter.findOneAndUpdate(
-      { _id: "post_id" },
-      { $inc: { count: 1 } },
-      { upsert: true, returnDocument: "after" }
-    );
-
-    const dom = new JSDOM(req.body.post);
+    const dom = new JSDOM(post);
     const document = dom.window.document;
     const images = document.querySelectorAll('img');
-    let imagesSrc = [];
-
-  images.forEach((image,i)=>{
-  const date = Date.now();
-  const imageDataUrl = image.getAttribute('src');
-  const imageData = imageDataUrl.split(',')[1];
-  const extension = imageDataUrl.match(/\/([a-zA-Z0-9]+);/)[1];
-
-  const filePath = `./public/uploads/${date}s${i}id${id.value.count}.${extension}`;
-  fs.writeFile(filePath, imageData, 'base64', (err) => {
-    if (err) {
-      return console.error(err);
+  
+    if(images.length > 0){
+     return saveRichTextWithImages(post, savePostWithImages);
+    }else{
+     return savePost()
     }
-    console.log('yes')
-    image.src = `/uploads/${date}s${i}id${id.value.count}.${extension}`;
-    image.alt = `post-image-${date}-s${i}id${id.value.count}`;
-    imagesSrc.push(image.src);
-    })
- });
- 
-    await client.close();
 
-try {
-      await client.connect();
-      const db = client.db("posts");
-      const category = db.collection(req.body.category);
-     
+
+async function savePost(){
+       const client = new MongoClient(uri);
+       await client.connect();
+
   try { 
-       const addPost =   await category.insertOne({
+       const db = client.db("microblog");
+       const counter = db.collection("counter");
+       const postCategory = db.collection(req.body.category);
+
+       const id = await counter.findOneAndUpdate(
+         { _id: "post_id" },
+         { $inc: { count: 1 } },
+         { upsert: true, returnDocument: "after" }
+        );
+
+       const addPost =   await postCategory.insertOne({
           id: "p"+id.value.count,
-          poster: req.body.poster,
+          poster: poster,
           date: Date(),
-          title: req.body.title,
-          description: req.body.description,
-          images: imagesSrc,
-          category:req.body.category,
+          title: title,
+          description: description,
+          images: [],
+          category: category,
           type: 'richText',
-          postBody: `<div class='ql-container ql-snow' >
-                      <div class='ql-editor'>
-                        ${document.querySelector('body').innerHTML}
+          postBody: `<div class='ql-container ql-snow richTextContainer' >
+                      <div class='ql-editor richText'>
+                        ${ post }
                       </div>
                      </div>`,
           commentCount: 0,
@@ -86,17 +61,61 @@ try {
           shares: 0
         });
 
-        res.json('yes');
-        console.log(addPost)
-     
-      } catch (e) {
-        res.json(e);
-      }
+      
+      res.status(200).json({
+          status:'success', 
+          postId: "p"+id.value.count
+        });
+
+       console.log(addPost)
+
     } catch (e) {
       res.json("error");
-      if (e) console.log(e);
+      console.log(e);
     } finally {
       await client.close();
     }
+   }
+
+   
+async function savePostWithImages(id, postBody, imagesSrc){
+  const client = new MongoClient(uri);
+  await client.connect();
+
+try { 
+
+  const db = client.db("microblog");
+  const postCategory = db.collection(req.body.category);
+
+  const addPost =   await postCategory.insertOne({
+     id: "p"+id,
+     poster: poster,
+     date: Date(),
+     title: title,
+     description: description,
+     images: imagesSrc,
+     category: category,
+     type: 'richText',
+     postBody: `<div class='ql-container ql-snow richTextContainer' >
+                 <div class='ql-editor richText'>
+                   ${ postBody }
+                 </div>
+                </div>`,
+     commentCount: 0,
+     likes: 0,
+     shares: 0
+   });
+
+  res.status(200).json({status:'success', postId: "p"+id});
+  console.log(addPost)
+
+} catch (e) {
+ res.json("error");
+ console.log(e);
+} finally {
+ await client.close();
+}
+}
+
   } else res.json("chai");
 }

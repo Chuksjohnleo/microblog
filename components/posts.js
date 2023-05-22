@@ -2,6 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import styles from './posts.module.css';
 import ImageView from "./imageView";
+import Link from "next/link";
 // import shadow from './images/shadow.svg';
 import shadow from './images/shadow2.jpg';
 
@@ -171,19 +172,14 @@ useEffect(()=>{
         {/* end */}
         <div className={styles.reaction}>
           <button>Like</button>
-          <button onClick={()=>{
-               if(post.category === 'LoveAndFamily'){
-                return location.href=`/love_and_family/${post.id}`;
-               }
-               if(post.category === 'ScienceAndTechnology'){
-                return location.href=`/science_and_technology/${post.id}`;
-               }
-               if(post.category === 'PetsAndAnimals'){
-                return location.href=`/pets_and_animals/${post.id}`;
-               }
-                console.log(post.category)
-               location.href =`/${post.category.toLowerCase()}/${post.id}`;
-            }}>Comment</button>
+          <Link href={post.category === 'LoveAndFamily'?
+                `/love_and_family/${post.id}`:
+                post.category === 'ScienceAndTechnology'?
+                `/science_and_technology/${post.id}`:
+                post.category === 'PetsAndAnimals'?
+                `/pets_and_animals/${post.id}`:
+                `/${post.category.toLowerCase()}/${post.id}`
+            }>Comment</Link>
           <button>Share</button>
         </div>
       </article>

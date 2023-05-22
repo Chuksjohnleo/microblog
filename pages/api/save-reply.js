@@ -1,6 +1,5 @@
-import console from 'console';
-import fs from 'fs';
-import {JSDOM} from 'jsdom';
+import { saveRichTextWithImages } from '@/libs/saveReply';
+import { JSDOM } from 'jsdom';
 import { MongoClient } from "mongodb";
 const uri = process.env.DB_PASS;
 
@@ -11,93 +10,121 @@ const uri = process.env.DB_PASS;
       }
     }
   }
-
+ 
 
 export default async function handler(req, res) {
+  const {postId, reply, replyTo, commentId, replier, replierId, category} = req.body;
   if (req.method === "POST") {
-    const client = new MongoClient(uri);
 
-    await client.connect();
-    const db = client.db("posts");
-    const counter = db.collection("replyCounter");
-
-    // const c = db.collection('Learning')
-  //  let v = await counter.deleteMany({})
-  //  let cf= await c.deleteMany({})
-  //   await client.close();
-  //   return console.log(v,cf)
-    const id = await counter.findOneAndUpdate(
-      { _id: "reply_id" },
-      { $inc: { count: 1 } },
-      { upsert: true, returnDocument: "after" }
-    );
-
-    const dom = new JSDOM(req.body.reply);
+    const dom = new JSDOM(reply);
     const document = dom.window.document;
     const images = document.querySelectorAll('img');
-    let imagesSrc = [];
-
-  images.forEach((image,i)=>{
-  const date = Date.now();
-  const imageDataUrl = image.getAttribute('src');
-  const imageData = imageDataUrl.split(',')[1];
-  const extension = imageDataUrl.match(/\/([a-zA-Z0-9]+);/)[1];
-
-  const filePath = `./public/uploads/${date}s${i}replyId${id.value.count}.${extension}`;
-  fs.writeFile(filePath, imageData, 'base64', (err) => {
-    if (err) {
-      console.error(err);
+  
+    if(images.length > 0){
+     return saveRichTextWithImages(reply, replier, saveReplyWithImages);
+    }else{
+     return saveReply()
     }
-    console.log('yes')
-    image.src = `/uploads/${date}s${i}replyId${id.value.count}.${extension}`;
-    image.alt = `reply-image-${date}-s${i}id${id.value.count}`;
-    imagesSrc.push(image.src);
-    })
- });
- 
-    await client.close();
 
-try {
-      await client.connect();
-      const db = client.db("posts");
-      const replies = db.collection(req.body.category+'Replies');
-      const comments = db.collection(req.body.category+'Comments');
-     
-   try { 
-       const data =   await replies.insertOne({
-        replyId:'r'+id.value.count,
-        reply: document.querySelector('body').innerHTML,
-        postId: req.body.postId,
-        replyTo: req.body.replyTo,
-        commentId: req.body.commentId,
-        date: Date(),
-        replier: req.body.replier,
-        replierId: req.body.replierId,
-        category: req.body.category,
-        likes: 0,
-        shares: 0
-       },(e,result)=>{
-        console.log(e,result)
-       });
 
-       const insertedData = await replies.findOne({replyId: 'r'+id.value.count, commentId: req.body.commentId},{projection:{ _id:0 }})
-       if(data.acknowledged === true){
-        const incrementReplyCount =  await comments.updateOne({ commentId: req.body.commentId },{
-          $inc:{ replyCount: 1 }
+async function saveReply(){
+       const client = new MongoClient(uri);
+       await client.connect();
+
+  try { 
+       const db = client.db("microblog");
+       const counter = db.collection("ReplyCounter");
+       const replies = db.collection(category+'Replies');
+       const comments = db.collection(category+'Comments');
+
+       const id = await counter.findOneAndUpdate(
+         { _id: "reply_id" },
+         { $inc: { count: 1 } },
+         { upsert: true, returnDocument: "after" }
+        );
+
+        const data =   await replies.insertOne({
+          replyId:'r'+id.value.count,
+          reply:`<div class='ql-container ql-snow richTextContainer' >
+                  <div class='ql-editor richText'>
+                   ${ reply }
+                  </div>
+                 </div>`,
+          postId: postId,
+          replyTo: replyTo,
+          commentId: commentId,
+          date: Date(),
+          replier: replier,
+          replierId: replierId,
+          category: category,
+          likes: 0,
+          shares: 0
         });
-        console.log(incrementReplyCount)
-       }
-       res.json({reply: insertedData});
-       console.log({reply: insertedData})
-     
-      } catch (e) {
-        console.log(e);
-      }
+  
+         const insertedData = await replies.findOne({replyId: 'r'+id.value.count, commentId: req.body.commentId},{projection:{ _id:0 }})
+         if(data.acknowledged === true){
+          const incrementReplyCount =  await comments.updateOne({ commentId: req.body.commentId },{
+            $inc:{ replyCount: 1 }
+          });
+          console.log(incrementReplyCount)
+         }
+         res.json({reply: insertedData});
+         console.log({reply: insertedData})
     } catch (e) {
       res.json("error");
-      if (e) console.log(e);
+      console.log(e);
     } finally {
       await client.close();
     }
+   }
+
+   
+async function saveReplyWithImages(id, replyBody, imagesSrc){
+  const client = new MongoClient(uri);
+  await client.connect();
+
+try { 
+
+  const db = client.db("microblog");
+  const replies = db.collection(category+'Replies');
+  const comments = db.collection(category+'Comments');
+ 
+  const data =   await replies.insertOne({
+    replyId:'r'+id,
+    reply:  `<div class='ql-container ql-snow richTextContainer' >
+              <div class='ql-editor richText'>
+               ${ replyBody }
+              </div>
+             </div>`,
+    postId: postId,
+    replyTo: replyTo,
+    commentId: commentId,
+    images: imagesSrc,
+    date: Date(),
+    replier: replier,
+    replierId: replierId,
+    category: category,
+    likes: 0,
+    shares: 0
+  });
+
+   const insertedData = await replies.findOne({replyId: 'r'+id, commentId: commentId},{projection:{ _id:0 }})
+   if(data.acknowledged === true){
+    const incrementReplyCount =  await comments.updateOne({ commentId: commentId },{
+      $inc:{ replyCount: 1 }
+    });
+    console.log(incrementReplyCount)
+   }
+   res.json({reply: insertedData});
+   console.log({reply: insertedData})
+
+} catch (e) {
+ res.json("error");
+ console.log(e);
+} finally {
+ await client.close();
+}
+}
+
   } else res.json("chai");
 }

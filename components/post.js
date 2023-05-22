@@ -1,14 +1,12 @@
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import styles from './post.module.css';
-import Nav from './Nav';
 import Footer from "./footer";
 import Comment from "./comment";
 import ImageView from "./imageView";
 import Pagination from "./pagination";
-import PostNav from "./postNav";
 import dynamic from "next/dynamic";
-import Sidebar from "./sidebar";
+import HomeLayout from "./homeLayout";
 const CommentEditor = dynamic(import("./commentEditor"), { ssr: false });
 
 export const Context = React.createContext();
@@ -29,6 +27,7 @@ const [lastPage,setLastPage] = useState(null);
 const [hasVisited, setHasVisited] = useState(false);
 const [isLoggedIn, setIsLoggedIn] = useState(false);
 const [userData,setUserData] = useState({});
+
 
 const [pages, setPages] = useState([]);
 
@@ -185,6 +184,7 @@ function follow(e, userId){
 }
 
   return (
+    <HomeLayout path={post.category}>
     <Context.Provider 
     value={{
       user:{
@@ -197,7 +197,7 @@ function follow(e, userId){
     isLoggedIn: isLoggedIn,
     follow: follow
     }}>
-  <Nav path={post.category}/>
+  {/* <Nav path={post.category}/>
   <div className={styles.generalContainer}>
   <div className={styles.sidebarContainer}> 
         <nav className={styles.sidebar}>
@@ -205,8 +205,8 @@ function follow(e, userId){
         </nav>
       </div>
     <div className={styles.mains}>
+    <PostNav path={post.category} /> */}
     {view===true?<ImageView viewImage={viewImage} image={imageUrl}/>:''}
-    <PostNav path={post.category} />
     <main className={styles.main} >
       <div className={styles.container} >
       <div className={styles.wrapper}>
@@ -217,7 +217,7 @@ function follow(e, userId){
           </a>
           {
             post.posterId !== userData.userId ? <button onClick={(e)=>follow(e, post.posterId)} className={styles.follow}>Follow</button>:
-            <span>You</span>
+            <span>Follow your self</span>
           }
            <div className={styles.date}>{date}</div>
         </div><hr/> 
@@ -327,13 +327,14 @@ function follow(e, userId){
     </div> 
     </main>
     <Footer/>
-    </div>
+    {/*</div>
     <div className={styles.sidebarContainer}> 
         <nav className={styles.sidebar}>
           <Sidebar />
         </nav>
-      </div>
-    </div>
+      </div>*/}
+   {/*</div>*/}
     </Context.Provider>
+    </HomeLayout>
   );
 }

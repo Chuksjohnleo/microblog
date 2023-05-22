@@ -74,6 +74,18 @@
     font-size: medium;
     margin: 10px 5px;
     max-width: 80vw;
+    max-height: 200px;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+}
+
+
+.fullComment{
+    font-size: medium;
+    margin: 10px 5px;
+    max-width: 80vw;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
 }
 
 .comment img{
@@ -83,6 +95,10 @@
     margin:10px;
     border-radius: 12px;
     /* object-fit: cover; */
+}
+
+.readMoreBtn{
+    box-shadow: 0 -10px 27px 0px rgb(0, 0, 128, 0.3);
 }
 
 .actionsContainer{
@@ -111,6 +127,7 @@
     border-radius: 12px;
     padding: 5px;
     margin-left: 5%;
+    max-width: 80vw;
 }
 
 .repliesBtn{
@@ -214,7 +231,6 @@
     padding: 5px;
     background-color: white;
 }
-
 
 .follow:active{
     background-color: navy;

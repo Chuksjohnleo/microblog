@@ -25,7 +25,7 @@ export default async function handler(req, res) {
    try { 
 
     await client.connect();
-    const db = client.db("posts");
+    const db = client.db("microblog");
 
     console.log(req.body)
     const replies = db.collection(req.body.category+'Replies');
