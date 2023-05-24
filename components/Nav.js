@@ -8,7 +8,7 @@ import Link from 'next/link';
 
 export default function Nav({ path, majorPath }) {
  
-  const { navPosition, navZindex } = useContext(HomeContext);
+  const { setNavPosition, navPosition, navZindex } = useContext(HomeContext);
  
   const [sidebar, setSidebar] = useState("closed");
   const [visibleSearch, setVisibleSearch] = useState("invisible");
@@ -44,6 +44,9 @@ export default function Nav({ path, majorPath }) {
   function openAndCloseSiderbar() {
     const html = document.querySelector("html");
     if (sidebar === "closed"){
+      if(navPosition==='static'){
+        setNavPosition('sticky');
+      }
        setSidebar("opened");
        html.style.overflow = 'hidden';
        return

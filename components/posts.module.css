@@ -81,7 +81,7 @@
     border-radius: 5px;
     width: 100%;
     max-width: 500px;
-    height:250px ;
+    height:350px ;
     object-fit: contain;
     z-index: 9;
 }
@@ -90,7 +90,7 @@
     .posts img{
         width: 100%;
         max-width: 500px;
-        height:250px ;
+        max-height:400px ;
     }
 }
 
