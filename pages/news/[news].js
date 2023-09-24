@@ -4,6 +4,7 @@ import shadow from '@/components/images/shadow.svg';
 import { useRouter } from 'next/router';
 import Image from "next/image";
 import Head from "next/head";
+import Link from "next/link";
 
 
 
@@ -20,12 +21,22 @@ export async function getStaticProps({params}){
      
       
       let body = await category.findOne({id:params.news},{projection:{_id:0}});
+      
+      // console.log(comments)
+      if(body === null || body === undefined ){
+        console.log('something-->',body, typeof body);
+        post = {};
+        return {
+          props: {
+           post
+          },
+        };
+      }
       let comments = await commentCollection.find({postId: params.news},{projection:{_id:0}}).sort({_id: -1}).toArray()
       body.comments = comments;
-      // console.log(comments)
       post = body;
     } catch (e) {
-      console.log(e)
+      console.log('e');
     } finally {
       await client.close();
     }
@@ -59,11 +70,11 @@ export async function getStaticPaths() {
     });
 
 // console.log(learning)
-    return {paths,fallback: true}
+    return {paths, fallback: true}
   }
 
 export default function Learning({post}){
-    // console.log(post)
+    console.log(post)
     const router = useRouter()
 
     // If the page is not yet generated, this will be displayed
@@ -72,12 +83,28 @@ export default function Learning({post}){
       return(
         <>
           <div>
-            <Image src='/favicon_io/favicon-16x16.png' alt='Chuksjohnleo logo' /> 
+            <Image src='/favicon_io/favicon-16x16.png' alt='Chuksjohnleo logo' height={30} width={30} /> 
             <div> Loading Post..... </div>
           </div>
         </>
         )
     }
+
+    if (!post.title) {
+      return(
+        <>
+          <div>
+            <div> 
+              This post does not exist<br/> 
+              <Link href='/'>Back To Home</Link>
+            </div>
+            <Image src='/favicon_io/favicon-16x16.png' alt='Chuksjohnleo logo' height={30} width={30} /> 
+            <div> Loading Post..... </div>
+          </div>
+        </>
+        )
+    }
+
     return(
     <>
       <Head>

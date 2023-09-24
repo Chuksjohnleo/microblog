@@ -86,7 +86,7 @@ export default function Nav({ path, majorPath }) {
           <div className={styles.idContainer1}>
             <div className={styles.logoContainer}>
               {/* <button onClick={()=>window.scrollTo(0,0)}>ok</button> */}
-              <Image className={styles.logo} alt="logo" src={logo} />
+              <Image className={styles.logo} alt="logo" src={logo} height={30} width={30} />
             </div>
             <h1 className={styles.h11}>Chuksjohnleo</h1>
           </div>
@@ -96,7 +96,7 @@ export default function Nav({ path, majorPath }) {
         <nav className={styles.nav}>
           <div className={styles.idContainer2}>
             <div className={styles.logoContainer}>
-              <Image className={styles.logo} alt="logo" src={logo} />
+              <Image className={styles.logo} alt="logo" src={logo} height={30} width={30} />
             </div>
             <h1 className={styles.h12}>Chuksjohnleo</h1>
           </div>
