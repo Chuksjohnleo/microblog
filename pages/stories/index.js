@@ -3,12 +3,11 @@ import Nav from "@/components/Nav";
 import Head from "next/head";
 import Posts from "@/components/posts";
 import Footer from "@/components/footer";
-import utilStyle from '@/styles/utils.module.css';
+import HomeLayout from "@/components/homeLayout";
 import styles from "@/styles/Home.module.css";
 
 
 import { MongoClient } from "mongodb";
-import HomeLayout from "@/components/homeLayout";
 
 const uri = process.env.DB_PASS;
 
@@ -19,7 +18,7 @@ export async function getServerSideProps() {
       await client.connect();
       const db = client.db("microblog");
    
-      const category = db.collection('Ict');
+      const category = db.collection('Stories');
       posts = await category.find({},{projection:{_id:0,postBody:0}}).sort({_id: -1}).toArray();
       console.log(posts)
 
@@ -36,20 +35,21 @@ export async function getServerSideProps() {
 }
 
 
-export default function Ict({posts}) {
+
+export default function Sports({posts}) {
  
   return (
     <>
       <Head>
-        <title>I.C.T | Chuksjohnleo Blogs</title>
-        <meta name="description" content="ICT posts on Chuksjohnleo" />
+        <title>Stories | Chuksjohnleo Blogs</title>
+        <meta name="description" content="Chuksjohnleo Sports Posts" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon_io/favicon.ico" />
         <meta property="og:image" content="/favicon_io/android-chrome-192x192.png"/>
         <meta property="og:title" content="This is a microblog by Chuksjohnleo, a web developer. As a fullstack web developer, I will develop responsive and affordable websites that are performant and scalable for you." />
       </Head>
-      <HomeLayout path={"Ict"}>
-      <h1 className={styles.h1}>I.C.T Category</h1>
+      <HomeLayout path={"Sports"}>
+      <h1 className={styles.h1}>Stories Category</h1>
       <main className={styles.main}>
       <section className={styles.posts}>
         <div>          
@@ -59,8 +59,8 @@ export default function Ict({posts}) {
         </div>
         </section>
         </main>
-      </HomeLayout>
-      <Footer/>
+        </HomeLayout>
+        <Footer/>
     </>
   );
 }

@@ -45,6 +45,8 @@ export default function Sports({posts}) {
         <meta name="description" content="Chuksjohnleo Sports Posts" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon_io/favicon.ico" />
+        <meta property="og:image" content="/favicon_io/android-chrome-192x192.png"/>
+        <meta property="og:title" content="This is a microblog by Chuksjohnleo, a web developer. As a fullstack web developer, I will develop responsive and affordable websites that are performant and scalable for you." />
       </Head>
       <HomeLayout path={"Sports"}>
       <h1 className={styles.h1}>Sports Category</h1>

@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem;
+  padding:2px;
   max-width: 800px;
   margin: auto;
 }
@@ -30,4 +30,10 @@
 .posts{
   word-wrap: break-word;
   max-width: 96vw;
+}
+
+@media screen and (min-width:1000px){
+  .posts{
+      max-width: var(--post-width);
+  }
 }

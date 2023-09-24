@@ -251,7 +251,7 @@ function follow(e, userId){
               </>:
                 <>
                   <div>
-                     <h1 className={styles.postTitle}>Title: {post.title}</h1>
+                     <h1 className={styles.postTitle}> {post.title} </h1>
                   </div>
                   <div id="postBody" className={styles.postBody} dangerouslySetInnerHTML={{__html: post.postBody}} />
                 </>

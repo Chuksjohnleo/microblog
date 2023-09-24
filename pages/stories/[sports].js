@@ -13,12 +13,12 @@ export async function getStaticProps({params}){
     try {
       await client.connect();
       const db = client.db("microblog");
-      const category = db.collection('Ict');
-      const commentCollection = db.collection('IctComments');
+      const category = db.collection('Stories');
+      const commentCollection = db.collection('StoriesComments');
      
       
-      let body = await category.findOne({id:params.ict},{projection:{_id:0}});
-      let comments = await commentCollection.find({postId: params.ict},{projection:{_id:0}}).sort({_id: -1}).limit(5).toArray()
+      let body = await category.findOne({id:params.sports},{projection:{_id:0}});
+      let comments = await commentCollection.find({postId: params.sports},{projection:{_id:0}}).sort({_id: -1}).toArray()
       body.comments = comments;
       console.log(comments)
       post = body;
@@ -41,7 +41,7 @@ export async function getStaticPaths() {
     try {
       await client.connect();
       const db = client.db("microblog");
-      const category = db.collection('Ict');
+      const category = db.collection('Stories');
       pathsArr = await category.find({},{projection:{_id:0,id:1}}).toArray();
       // console.log(pathsArr)
     } catch (e) {
@@ -52,7 +52,7 @@ export async function getStaticPaths() {
 
    const paths =  pathsArr.map((path)=>{
         return {
-          params:{ict:  path.id.toString()}
+          params:{sports:  path.id.toString()}
         }
     });
 
@@ -65,7 +65,7 @@ export default function Learning({post}){
     return(
     <>
       <Head>
-        <title>{`ICT: ${post.title} | Chuksjohnleo Blogs`}</title>
+        <title>{`Stories: ${post.title} | Chuksjohnleo Blogs`}</title>
         <meta name="description" content={post.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon_io/favicon.ico" />
